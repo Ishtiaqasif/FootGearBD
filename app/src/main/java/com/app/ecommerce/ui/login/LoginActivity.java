@@ -76,9 +76,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (sharedPref != null) {
                     sharedPref.setYourAge("Old");
 
-                    String name = findViewById(R.id.username).toString();
-
-                    sharedPref.setYourName(findViewById(R.id.username).toString());
+                    String value = usernameEditText.getText().toString();
+                    sharedPref.setYourName(value);
 
                 }
                 //Complete and destroy login activity once successful
