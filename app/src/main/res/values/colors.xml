@@ -16,7 +16,7 @@
     <color name="separator">#efefef</color>
     <color name="white">#ffffff</color>
     <color name="hint">#767676</color>
-    <color name="available">#ef6c00</color>
+    <color name="available">#EF6C00</color>
     <color name="sold">#767676</color>
 
 </resources>

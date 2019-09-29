@@ -1,20 +1,18 @@
 package com.app.ecommerce.activities;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.content.Context;
 
+import com.app.ecommerce.ActivityRegistration;
 import com.app.ecommerce.Config;
 import com.app.ecommerce.R;
-import com.app.ecommerce.ui.login.LoginActivity;
 import com.app.ecommerce.utilities.SharedPref;
 
 public class ActivitySplash extends AppCompatActivity {
@@ -64,7 +62,7 @@ public class ActivitySplash extends AppCompatActivity {
                             boolean diff = sharedPref.getYourAge().equals(ageY);
 
                             if(diff){
-                                Intent x = new Intent(ActivitySplash.this, LoginActivity.class);
+                                Intent x = new Intent(ActivitySplash.this, ActivityRegistration.class);
                                 startActivity(x);
                                 finish();
                                 }
