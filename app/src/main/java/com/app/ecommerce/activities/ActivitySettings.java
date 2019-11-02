@@ -53,7 +53,8 @@ public class ActivitySettings extends PreferenceActivity {
         final EditTextPreference prefName = (EditTextPreference) findPreference(getString(R.string.pref_title_name));
         final EditTextPreference prefEmail = (EditTextPreference) findPreference(getString(R.string.pref_title_email));
         final EditTextPreference prefPhone = (EditTextPreference) findPreference(getString(R.string.pref_title_phone));
-        final EditTextPreference prefAddress = (EditTextPreference) findPreference(getString(R.string.pref_title_address));
+        final EditTextPreference prefAddress = (EditTextPreference) findPreference(getString(R.string.pref_title_shopAddress));
+        final EditTextPreference prefShopName = (EditTextPreference) findPreference(getString(R.string.pref_title_shopName));
 
         prefName.setSummary(sharedPref.getYourName());
         prefName.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -109,7 +110,7 @@ public class ActivitySettings extends PreferenceActivity {
             }
         });
 
-        prefAddress.setSummary(sharedPref.getYourAddress());
+        prefAddress.setSummary(sharedPref.getYourShopAddress());
         prefAddress.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object o) {

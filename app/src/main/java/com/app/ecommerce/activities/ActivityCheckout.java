@@ -52,8 +52,8 @@ public class ActivityCheckout extends AppCompatActivity {
 
     RequestQueue requestQueue;
     Button btn_submit_order;
-    EditText edt_name, edt_email, edt_phone, edt_address, edt_shipping, edt_order_list, edt_order_total, edt_comment;
-    String str_name, str_email, str_phone, str_address, str_shipping, str_order_list, str_order_total, str_comment;
+    EditText edt_name, edt_shopName, edt_email, edt_phone, edt_address, edt_shipping, edt_order_list, edt_order_total, edt_comment;
+    String str_name, str_shopName, str_email, str_phone, str_address, str_shipping, str_order_list, str_order_total, str_comment;
     String data_order_list = "";
     double str_tax;
     String str_currency_code;
@@ -103,6 +103,7 @@ public class ActivityCheckout extends AppCompatActivity {
         btn_submit_order = findViewById(R.id.btn_submit_order);
 
         edt_name = findViewById(R.id.edt_name);
+        edt_shopName = findViewById(R.id.edt_shopName);
         edt_email = findViewById(R.id.edt_email);
         edt_phone = findViewById(R.id.edt_phone);
         edt_address = findViewById(R.id.edt_address);
@@ -209,6 +210,7 @@ public class ActivityCheckout extends AppCompatActivity {
     public void getValueFromEditText() {
 
         str_name = edt_name.getText().toString();
+        str_shopName = edt_shopName.getText().toString();
         str_email = edt_email.getText().toString();
         str_phone = edt_phone.getText().toString();
         str_address = edt_address.getText().toString();
@@ -404,9 +406,10 @@ public class ActivityCheckout extends AppCompatActivity {
     @Override
     public void onResume() {
         edt_name.setText(sharedPref.getYourName());
+        edt_shopName.setText(sharedPref.getYourShopName());
         edt_email.setText(sharedPref.getYourEmail());
         edt_phone.setText(sharedPref.getYourPhone());
-        edt_address.setText(sharedPref.getYourAddress());
+        edt_address.setText(sharedPref.getYourShopAddress());
         super.onResume();
     }
 

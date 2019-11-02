@@ -10,10 +10,12 @@ import android.view.View;
 import android.widget.ProgressBar;
 import android.content.Context;
 
-import com.app.ecommerce.ActivityRegistration;
 import com.app.ecommerce.Config;
+import com.app.ecommerce.ActivityLogin;
 import com.app.ecommerce.R;
 import com.app.ecommerce.utilities.SharedPref;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class ActivitySplash extends AppCompatActivity {
 
@@ -22,7 +24,10 @@ public class ActivitySplash extends AppCompatActivity {
     long id = 0;
     String url = "";
 
-    final String ageY = "Young";
+    FirebaseUser currentUser;
+
+    FirebaseAuth mAuth;
+
 
 
     @Override
@@ -30,8 +35,8 @@ public class ActivitySplash extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
 
-        Context context =  getApplicationContext();
-        final SharedPref sharedPref = new SharedPref(context);
+
+        mAuth = FirebaseAuth.getInstance();
 
 
         if (Config.ENABLE_RTL_MODE) {
@@ -59,16 +64,19 @@ public class ActivitySplash extends AppCompatActivity {
                     if (id == 0) {
                         if (url.equals("") || url.equals("no_url")) {
 
-                            boolean diff = sharedPref.getYourAge().equals(ageY);
 
-                            if(diff){
-                                Intent x = new Intent(ActivitySplash.this, ActivityRegistration.class);
-                                startActivity(x);
-                                finish();
-                                }
-                            else if(!diff){
+                            currentUser = mAuth.getCurrentUser();
+
+
+                            if (currentUser != null ){
 
                                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                startActivity(intent);
+                                finish();
+                            }
+                            else{
+
+                                Intent intent = new Intent(getApplicationContext(), ActivityLogin.class);
                                 startActivity(intent);
                                 finish();
                             }

@@ -50,6 +50,7 @@
 
     <!--checkout menu-->
     <string name="checkout_your_name">Your Name</string>
+    <string name="checkout_your_shopName">Your Shop Name</string>
     <string name="checkout_email">Your Email</string>
     <string name="checkout_phone_number">Phone Number</string>
     <string name="checkout_order_list">Order Detail</string>
@@ -75,16 +76,20 @@
 
     <!--profile preferences-->
     <string name="pref_group_profile">PROFILE</string>
-    <string name="pref_title_age">Age</string>
+    <string name="pref_title_NID">NID</string>
     <string name="pref_title_name">Name</string>
     <string name="pref_title_email">Email</string>
     <string name="pref_title_phone">Phone Number</string>
-    <string name="pref_title_address">Address</string>
-    <string name="default_your_age">Young</string>
+    <string name="pref_title_shopAddress">Shop Address</string>
+    <string name="pref_title_shopName">Shop Name</string>
+
+    <string name="default_your_NID">xxxxxxxxxxxxx</string>
     <string name="default_your_name">Your Name</string>
     <string name="default_your_email">your.email@gmail.com</string>
     <string name="default_your_phone">+628123456789</string>
-    <string name="default_your_address">Your Address</string>
+    <string name="default_your_shopAddress">Your Shop Address</string>
+    <string name="default_your_shopName">Your Shop Name</string>
+
     <string name="pref_msg_invalid_name">Invalid Name Input</string>
     <string name="pref_msg_invalid_email">Invalid Email Input</string>
     <string name="pref_msg_invalid_phone">Invalid Phone Input</string>
@@ -144,4 +149,7 @@
     <string name="enter_code_received">Enter code received</string>
     <string name="sign_in">Sign In</string>
     <string name="enter_phone_number">Enter phone Number</string>
+    <string name="login">Login</string>
+    <string name="no_account_yet_create_one">No account yet? Create one</string>
+    <string name="sign_out">Sign Out</string>
 </resources>
