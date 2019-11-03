@@ -13,10 +13,8 @@ import com.basgeekball.awesomevalidation.AwesomeValidation;
 import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.basgeekball.awesomevalidation.utility.custom.SimpleCustomValidation;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-import static com.google.common.base.Predicates.equalTo;
+import java.util.regex.Pattern;
 
 public class ActivityRegistration extends AppCompatActivity {
 
@@ -89,13 +87,14 @@ public class ActivityRegistration extends AppCompatActivity {
                 if (editTextEmail.length() == 0 )  {
                     return true;
                 }
+                else return EMAIL_ADDRESS_PATTERN.matcher(editTextEmail).matches();
 
-                return false;
             }
         }, R.string.email_error);
 
 
        // awesomeValidation.addValidation(ActivityRegistration.this, R.id.emailOptional, android.util.Patterns.EMAIL_ADDRESS, R.string.email_error);
+
 
 
 
@@ -122,9 +121,19 @@ public class ActivityRegistration extends AppCompatActivity {
                     Toast.makeText(ActivityRegistration.this, "Error", Toast.LENGTH_SHORT).show();
                 }
             }
+
         });
 
-    }
-}
 
-//TODO: is to check mobile number is already exists whether or not
+    }
+    public static final Pattern EMAIL_ADDRESS_PATTERN = Pattern.compile(
+
+            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                    "\\@" +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                    "(" +
+                    "\\." +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                    ")+"
+    );
+}
