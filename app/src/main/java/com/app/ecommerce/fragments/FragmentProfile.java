@@ -98,7 +98,7 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
                 String share_text = Html.fromHtml(getResources().getString(R.string.share_app)).toString();
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_SEND);
-                intent.putExtra(Intent.EXTRA_TEXT, share_text + "\n\n" + "https://play.google.com/store/apps/details?id=" + getActivity().getPackageName());
+                intent.putExtra(Intent.EXTRA_TEXT, share_text + "\n\n" + getString(R.string.playstore_link) + getActivity().getPackageName());
                 intent.setType("text/plain");
                 startActivity(intent);
             }
@@ -121,7 +121,7 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
         txt_user_email.setText(sharedPref.getYourEmail());
         txt_user_phone.setText(sharedPref.getYourPhone());
         txt_user_address.setText(sharedPref.getYourShopName());
-        txt_user_shopName.setText(sharedPref.getYourShopName());
+        txt_user_shopName.setText(sharedPref.getYourShopAddress());
         txt_user_NID.setText(sharedPref.getYourNID());
         super.onResume();
     }

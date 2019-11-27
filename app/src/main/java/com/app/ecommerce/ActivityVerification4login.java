@@ -5,7 +5,9 @@ import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -20,18 +22,22 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.concurrent.TimeUnit;
 
 public class ActivityVerification4login extends AppCompatActivity {
-
-
+    //UserAlt user = new UserAlt();
+    Button btnSignIn;
     EditText Phone, Code;
     FirebaseAuth mAuth;
     FirebaseDatabase _db;
     DatabaseReference _myRef;
+    SharedPref sharedPref;
 
     String codeSent;
 
@@ -43,7 +49,7 @@ public class ActivityVerification4login extends AppCompatActivity {
 
         // Write a message to the database
 
-
+        btnSignIn = findViewById(R.id.buttonSignIn);
         Phone = findViewById(R.id.editTextPhone);
         Code = findViewById(R.id.editTextCode);
 
@@ -51,7 +57,7 @@ public class ActivityVerification4login extends AppCompatActivity {
 
         Phone.setText(temp);
         Phone.setEnabled(false);
-
+        btnSignIn.setEnabled(false);
 
         mAuth = FirebaseAuth.getInstance();
         _db = FirebaseDatabase.getInstance();
@@ -141,8 +147,11 @@ public class ActivityVerification4login extends AppCompatActivity {
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
 
-            Toast.makeText(ActivityVerification4login.this, "Verified", Toast.LENGTH_SHORT).show();
-
+            Toast.makeText(ActivityVerification4login.this, "Check your inbox", Toast.LENGTH_SHORT).show();
+            btnSignIn.setBackgroundColor(getResources().getColor(R.color.primaryColor));
+            btnSignIn.setEnabled(true);
+             //todo fixing setting the saved pref
+             //setSavedPreferences();
         }
         @Override
         public void onVerificationFailed(FirebaseException e) {
@@ -160,4 +169,38 @@ public class ActivityVerification4login extends AppCompatActivity {
         }
 
     };
+
+    void setSavedPreferences(){
+
+
+        _myRef.child(String.valueOf(Phone)).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                UserAlt user = dataSnapshot.getValue(UserAlt.class);
+
+                assert user != null;
+                addUserToSavedPref(user);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            // Failed to read value
+              //  Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+
+        }
+    private void addUserToSavedPref(UserAlt user) {
+
+        sharedPref.setYourName(user.name);
+        sharedPref.setYourShopName(user.shopName);
+        sharedPref.setYourShopAddress(user.shopLocation);
+        sharedPref.setYourPhone(user.phone);
+        sharedPref.setYourNID(user.NID);
+        sharedPref.setYourEmail(user.email);
+    }
+
 }

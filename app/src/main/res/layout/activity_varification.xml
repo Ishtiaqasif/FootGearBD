@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/white"
     tools:context=".ActivityVerification">
 
 
@@ -15,7 +16,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="75dp"
-        android:background="@drawable/logo" />
+        android:background="@drawable/footgearbd" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -37,6 +38,7 @@
             android:id="@+id/buttonGetVerificationCode"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
             android:text="@string/get_verification_code"
             android:textAllCaps="false" />
 

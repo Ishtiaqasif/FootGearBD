@@ -8,12 +8,10 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ProgressBar;
-import android.content.Context;
 
 import com.app.ecommerce.Config;
 import com.app.ecommerce.ActivityLogin;
 import com.app.ecommerce.R;
-import com.app.ecommerce.utilities.SharedPref;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 

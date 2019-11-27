@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -27,7 +28,7 @@ import java.util.concurrent.TimeUnit;
 
 public class ActivityVerification extends AppCompatActivity {
 
-
+    Button btnSignIn;
     EditText Phone, Code;
     FirebaseAuth mAuth;
     FirebaseDatabase _db;
@@ -46,7 +47,7 @@ public class ActivityVerification extends AppCompatActivity {
 
         // Write a message to the database
 
-
+        btnSignIn = findViewById(R.id.buttonSignIn);
         Phone = findViewById(R.id.editTextPhone);
         Code = findViewById(R.id.editTextCode);
 
@@ -54,6 +55,7 @@ public class ActivityVerification extends AppCompatActivity {
 
         Phone.setText(temp);
         Phone.setEnabled(false);
+        btnSignIn.setEnabled(false);
 
         context =  getApplicationContext();
         sharedPref = new SharedPref(context);
@@ -70,7 +72,6 @@ public class ActivityVerification extends AppCompatActivity {
         _myRef = _db.getReference("users");
 
 
-        addUserToDatabase();
 
         findViewById(R.id.buttonGetVerificationCode).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -172,7 +173,7 @@ public class ActivityVerification extends AppCompatActivity {
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phone,        // Phone number to verify
-                120,                 // Timeout duration
+                60,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
                 mCallbacks);        // OnVerificationStateChangedCallbacks
@@ -182,7 +183,9 @@ public class ActivityVerification extends AppCompatActivity {
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
 
-            Toast.makeText(ActivityVerification.this, "Verified", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityVerification.this, "Check your inbox", Toast.LENGTH_SHORT).show();
+            btnSignIn.setBackgroundColor(getResources().getColor(R.color.primaryColor));
+            btnSignIn.setEnabled(true);
 
         }
 
@@ -197,8 +200,11 @@ public class ActivityVerification extends AppCompatActivity {
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
 
+
+
             Toast.makeText(ActivityVerification.this, "Code Sent", Toast.LENGTH_SHORT).show();
             codeSent =s;
+
         }
 
     };

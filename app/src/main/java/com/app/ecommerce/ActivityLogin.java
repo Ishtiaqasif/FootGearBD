@@ -85,7 +85,7 @@ public class ActivityLogin extends AppCompatActivity  {
         final ProgressDialog progressDialog = new ProgressDialog(ActivityLogin.this,
                 R.style.AppTheme_Dark_Dialog);
         progressDialog.setIndeterminate(true);
-        progressDialog.setMessage("Authenticating...");
+        progressDialog.setMessage(getString(R.string.authing));
         progressDialog.show();
 
         final String phone = _phoneText.getText().toString();
@@ -98,21 +98,22 @@ public class ActivityLogin extends AppCompatActivity  {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                        //Log.i(Constants.TAG, "dataSnapshot value = " + dataSnapshot.getValue());
-
                         if (dataSnapshot.exists()) {
-                            Intent intent = new Intent(ActivityLogin.this, ActivityVerification4login.class);
+                            Intent intent = new Intent(getApplicationContext(), ActivityVerification4login.class);
 
                             intent.putExtra ( "ContactNumber", phone );
 
                             startActivity(intent);
-                            Toast.makeText(getApplicationContext(), "You look familiar to us.", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ActivityLogin.this, "You look familiar to us.", Toast.LENGTH_LONG).show();
 
                         } else {
 
-                            Toast.makeText(getApplicationContext(), "You don't have a account! Sign Up First!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(ActivityLogin.this, "You don't have a account! Sign Up First!", Toast.LENGTH_LONG).show();
                             // User Not Yet Exists
                             // Do your stuff here if user not yet exists
+                            //onLoginFailed();
+                            Intent intent = new Intent(getApplicationContext(), ActivityRegistration.class);
+                            startActivity(intent);
                         }
                     }
                     @Override
@@ -122,17 +123,17 @@ public class ActivityLogin extends AppCompatActivity  {
                 }
 
         );
-
+//todo crashing the activity after a unsuccessful login
 
         new android.os.Handler().postDelayed(
                 new Runnable() {
                     public void run() {
                         // On complete call either onLoginSuccess or onLoginFailed
                         onLoginSuccess();
-                        // onLoginFailed();
+                        onLoginFailed();
                         progressDialog.dismiss();
                     }
-                }, 3000);
+                }, 2000);
     }
 
 
@@ -157,13 +158,11 @@ public class ActivityLogin extends AppCompatActivity  {
     public void onLoginSuccess() {
         _loginButton.setEnabled(true);
 
-
-
         finish();
     }
 
     public void onLoginFailed() {
-        Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+        //Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
 
         _loginButton.setEnabled(true);
     }

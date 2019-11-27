@@ -55,6 +55,8 @@ public class ActivitySettings extends PreferenceActivity {
         final EditTextPreference prefPhone = (EditTextPreference) findPreference(getString(R.string.pref_title_phone));
         final EditTextPreference prefAddress = (EditTextPreference) findPreference(getString(R.string.pref_title_shopAddress));
         final EditTextPreference prefShopName = (EditTextPreference) findPreference(getString(R.string.pref_title_shopName));
+        final EditTextPreference prefNID = (EditTextPreference) findPreference(getString(R.string.pref_title_NID));
+
 
         prefName.setSummary(sharedPref.getYourName());
         prefName.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
@@ -63,6 +65,24 @@ public class ActivitySettings extends PreferenceActivity {
                 String s = (String) o;
                 if(!s.trim().isEmpty()){
                     prefName.setSummary(s);
+                    return true;
+                }else{
+                    Snackbar snackbar = Snackbar.make(parent_view, R.string.pref_msg_invalid_name, Snackbar.LENGTH_LONG);
+                    TextView textView = (TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(Color.YELLOW);
+                    snackbar.show();
+                    return false;
+                }
+            }
+        });
+
+        prefShopName.setSummary(sharedPref.getYourShopName());
+        prefShopName.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+                String s = (String) o;
+                if(!s.trim().isEmpty()){
+                    prefShopName.setSummary(s);
                     return true;
                 }else{
                     Snackbar snackbar = Snackbar.make(parent_view, R.string.pref_msg_invalid_name, Snackbar.LENGTH_LONG);
@@ -102,6 +122,25 @@ public class ActivitySettings extends PreferenceActivity {
                     return true;
                 }else{
                     Snackbar snackbar = Snackbar.make(parent_view, R.string.pref_msg_invalid_phone, Snackbar.LENGTH_LONG);
+                    TextView textView = (TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text);
+                    textView.setTextColor(Color.YELLOW);
+                    snackbar.show();
+                    return false;
+                }
+            }
+        });
+
+
+        prefNID.setSummary(sharedPref.getYourNID());
+        prefNID.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object o) {
+                String s = (String) o;
+                if(!s.trim().isEmpty()){
+                    prefNID.setSummary(s);
+                    return true;
+                }else{
+                    Snackbar snackbar = Snackbar.make(parent_view, R.string.pref_msg_invalid_address, Snackbar.LENGTH_LONG);
                     TextView textView = (TextView) snackbar.getView().findViewById(android.support.design.R.id.snackbar_text);
                     textView.setTextColor(Color.YELLOW);
                     snackbar.show();
