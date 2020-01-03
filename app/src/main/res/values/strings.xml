@@ -153,6 +153,11 @@
     <string name="no_account_yet_create_one">No account yet? Create one</string>
     <string name="sign_out">Sign Out</string>
     <string name="authing">Authenticating...</string>
-    <string name="check_inbox">Check your inbox</string>
+
     <string name="playstore_link">https://play.google.com/store/apps/details?id=</string>
+    <string name="enter_code">Enter the code first</string>
+    <string name="check_inbox">Check your inbox</string>
+    <string name="failed_varification">Verification Failed</string>
+    <string name="sent_code">Code Sent</string>
+    <string name="wrong_code">Wrong Verification Code</string>
 </resources>

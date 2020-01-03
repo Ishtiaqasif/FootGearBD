@@ -14,6 +14,8 @@ import android.widget.Toast;
 import com.app.ecommerce.activities.MainActivity;
 import com.app.ecommerce.models.UserAlt;
 import com.app.ecommerce.utilities.SharedPref;
+import com.basgeekball.awesomevalidation.AwesomeValidation;
+import com.basgeekball.awesomevalidation.ValidationStyle;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
@@ -38,7 +40,6 @@ public class ActivityVerification4login extends AppCompatActivity {
     FirebaseDatabase _db;
     DatabaseReference _myRef;
     SharedPref sharedPref;
-
     String codeSent;
 
 
@@ -63,7 +64,6 @@ public class ActivityVerification4login extends AppCompatActivity {
         _db = FirebaseDatabase.getInstance();
         _myRef = _db.getReference("users");
 
-
         findViewById(R.id.buttonGetVerificationCode).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -76,7 +76,10 @@ public class ActivityVerification4login extends AppCompatActivity {
         findViewById(R.id.buttonSignIn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                verifySignIn();
+                if(validate()) {
+                    verifySignIn();
+                }
+
 
             }
         });
@@ -107,7 +110,7 @@ public class ActivityVerification4login extends AppCompatActivity {
                             // Sign in failed, display a message and update the UI
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
-                                Toast.makeText(ActivityVerification4login.this, "Wrong ActivityVerification Code", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ActivityVerification4login.this, getString(R.string.wrong_code), Toast.LENGTH_SHORT).show();
                             }
 
                         }
@@ -116,28 +119,28 @@ public class ActivityVerification4login extends AppCompatActivity {
     }
 
 
+    private boolean validate(){
+
+        String code = Code.getText().toString();
+        boolean flag;
+        if (code.isEmpty()){
+            Code.setError(getString(R.string.enter_code));
+            Code.requestFocus();
+            flag = false;
+        }
+        else
+            flag =  true;
+
+        return flag;
+    }
     private void sendVerificationCode(){
 
         String phone = Phone.getText().toString();
 
-        if (phone.isEmpty()){
-            Phone.setError("Phone Number is Required");
-            Phone.requestFocus();
-
-            return;
-        }
-
-        if (phone.length() < 10) {
-            Phone.setError("Please Provide Valid Phone Number");
-            Phone.requestFocus();
-
-            return;
-        }
-
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phone,        // Phone number to verify
-                120,                 // Timeout duration
+                60,                 // Timeout duration
                 TimeUnit.SECONDS,   // Unit of timeout
                 this,               // Activity (for callback binding)
                 mCallbacks);        // OnVerificationStateChangedCallbacks
@@ -147,7 +150,7 @@ public class ActivityVerification4login extends AppCompatActivity {
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
 
-            Toast.makeText(ActivityVerification4login.this, "Check your inbox", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityVerification4login.this, getString(R.string.check_inbox), Toast.LENGTH_SHORT).show();
             btnSignIn.setBackgroundColor(getResources().getColor(R.color.primaryColor));
             btnSignIn.setEnabled(true);
              //todo fixing setting the saved pref
@@ -156,7 +159,7 @@ public class ActivityVerification4login extends AppCompatActivity {
         @Override
         public void onVerificationFailed(FirebaseException e) {
 
-            Toast.makeText(ActivityVerification4login.this, "Verification Failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityVerification4login.this, getString(R.string.failed_varification), Toast.LENGTH_SHORT).show();
 
         }
 
@@ -164,7 +167,7 @@ public class ActivityVerification4login extends AppCompatActivity {
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
 
-            Toast.makeText(ActivityVerification4login.this, "Code Sent", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityVerification4login.this, getString(R.string.sent_code), Toast.LENGTH_SHORT).show();
             codeSent =s;
         }
 

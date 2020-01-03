@@ -131,7 +131,13 @@ public class FragmentProfile extends Fragment implements View.OnClickListener {
         FirebaseAuth.getInstance().signOut();
 
         Intent intent = new Intent(getActivity(), ActivityLogin.class);
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                Intent.FLAG_ACTIVITY_NEW_TASK);
+
         startActivity(intent);
+
     }
 }
 

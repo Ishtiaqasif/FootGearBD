@@ -85,7 +85,9 @@ public class ActivityVerification extends AppCompatActivity {
         findViewById(R.id.buttonSignIn).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                verifySignIn();
+                if(validate()) {
+                    verifySignIn();
+                }
 
             }
         });
@@ -120,7 +122,7 @@ public class ActivityVerification extends AppCompatActivity {
                             // Sign in failed, display a message and update the UI
                             if (task.getException() instanceof FirebaseAuthInvalidCredentialsException) {
                                 // The verification code entered was invalid
-                                Toast.makeText(ActivityVerification.this, "Wrong ActivityVerification Code", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ActivityVerification.this, getString(R.string.wrong_code), Toast.LENGTH_SHORT).show();
                             }
 
                         }
@@ -152,24 +154,24 @@ public class ActivityVerification extends AppCompatActivity {
 
     }
 
+    private boolean validate(){
+
+        String code = Code.getText().toString();
+        boolean flag;
+        if (code.isEmpty()){
+            Code.setError(getString(R.string.enter_code));
+            Code.requestFocus();
+            flag = false;
+        }
+        else
+            flag =  true;
+
+        return flag;
+    }
+
     private void sendVerificationCode(){
 
         String phone = Phone.getText().toString();
-
-        if (phone.isEmpty()){
-            Phone.setError("Phone Number is Required");
-            Phone.requestFocus();
-
-            return;
-        }
-
-        if (phone.length() < 10) {
-            Phone.setError("Please Provide Valid Phone Number");
-            Phone.requestFocus();
-
-            return;
-        }
-
 
         PhoneAuthProvider.getInstance().verifyPhoneNumber(
                 phone,        // Phone number to verify
@@ -183,7 +185,7 @@ public class ActivityVerification extends AppCompatActivity {
         @Override
         public void onVerificationCompleted(PhoneAuthCredential phoneAuthCredential) {
 
-            Toast.makeText(ActivityVerification.this, "Check your inbox", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityVerification.this, getString(R.string.check_inbox), Toast.LENGTH_SHORT).show();
             btnSignIn.setBackgroundColor(getResources().getColor(R.color.primaryColor));
             btnSignIn.setEnabled(true);
 
@@ -192,7 +194,7 @@ public class ActivityVerification extends AppCompatActivity {
         @Override
         public void onVerificationFailed(FirebaseException e) {
 
-            Toast.makeText(ActivityVerification.this, "Verification Failed", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityVerification.this, getString(R.string.failed_varification), Toast.LENGTH_SHORT).show();
 
         }
 
@@ -202,7 +204,7 @@ public class ActivityVerification extends AppCompatActivity {
 
 
 
-            Toast.makeText(ActivityVerification.this, "Code Sent", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityVerification.this, getString(R.string.sent_code), Toast.LENGTH_SHORT).show();
             codeSent =s;
 
         }
