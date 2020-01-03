@@ -2,9 +2,18 @@
 <resources>
 
     <!--app main color-->
-    <color name="colorPrimaryDark">#cf5e00</color>
-    <color name="colorPrimary">#ef6c00</color>
-    <color name="colorAccent">#ff9800</color>
+    <color name="colorPrimaryDark">#00A599</color>
+    <color name="colorPrimary">#41B8AC</color>
+    <color name="colorAccent">#62CAC0</color>
+
+    <color name="primaryColor">#4DB6AC</color>
+    <color name="primaryLightColor">#82e9de</color>
+    <color name="primaryDarkColor">#00867D</color>
+    <color name="secondaryColor">#80cbc4</color>
+    <color name="secondaryLightColor">#b2fef7</color>
+    <color name="secondaryDarkColor">#4f9a94</color>
+    <color name="primaryTextColor">#000000</color>
+    <color name="secondaryTextColor">#000000</color>
 
     <!--other color-->
     <color name="txt_price_color">#0AAC3A</color>
@@ -16,7 +25,7 @@
     <color name="separator">#efefef</color>
     <color name="white">#ffffff</color>
     <color name="hint">#767676</color>
-    <color name="available">#ef6c00</color>
+    <color name="available">#00867d</color>
     <color name="sold">#767676</color>
 
 </resources>

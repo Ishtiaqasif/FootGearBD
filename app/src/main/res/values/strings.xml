@@ -2,7 +2,7 @@
 <resources>
 
     <!--application name-->
-    <string name="app_name">E-Commerce Android App</string>
+    <string name="app_name">FootGearBD</string>
 
     <!--bottom navigation-->
     <string name="title_nav_recent">Recent</string>
@@ -50,6 +50,7 @@
 
     <!--checkout menu-->
     <string name="checkout_your_name">Your Name</string>
+    <string name="checkout_your_shopName">Your Shop Name</string>
     <string name="checkout_email">Your Email</string>
     <string name="checkout_phone_number">Phone Number</string>
     <string name="checkout_order_list">Order Detail</string>
@@ -75,16 +76,20 @@
 
     <!--profile preferences-->
     <string name="pref_group_profile">PROFILE</string>
-    <string name="pref_title_age">Age</string>
+    <string name="pref_title_NID">NID</string>
     <string name="pref_title_name">Name</string>
     <string name="pref_title_email">Email</string>
     <string name="pref_title_phone">Phone Number</string>
-    <string name="pref_title_address">Address</string>
-    <string name="default_your_age">Young</string>
+    <string name="pref_title_shopAddress">Shop Address</string>
+    <string name="pref_title_shopName">Shop Name</string>
+
+    <string name="default_your_NID">xxxxxxxxxxxxx</string>
     <string name="default_your_name">Your Name</string>
     <string name="default_your_email">your.email@gmail.com</string>
     <string name="default_your_phone">+628123456789</string>
-    <string name="default_your_address">Your Address</string>
+    <string name="default_your_shopAddress">Your Shop Address</string>
+    <string name="default_your_shopName">Your Shop Name</string>
+
     <string name="pref_msg_invalid_name">Invalid Name Input</string>
     <string name="pref_msg_invalid_email">Invalid Email Input</string>
     <string name="pref_msg_invalid_phone">Invalid Phone Input</string>
@@ -124,5 +129,35 @@
     <string name="invalid_username">Not a valid username</string>
     <string name="invalid_password">Password must be >5 characters</string>
     <string name="login_failed">"Login failed"</string>
+    <string name="name">Name</string>
+    <string name="shop_name">Shop Name</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="email_optional">Email(Optional)</string>
+    <string name="registration">Registration</string>
+    <string name="register">Register</string>
+    <string name="nid">NID</string>
 
+    <!--User Validation errors-->
+
+    <string name="name_error">only letter are allowed in name</string>
+    <string name="shop_name_error">only letter are allowed in Shop name</string>
+    <string name="shop_location_error">only letter and digits are allowed in Shop location</string>
+    <string name="contact_number_error">please provide 11 digit mobile</string>
+    <string name="nid_error">please provide 13 digit NID</string>
+    <string name="email_error">keep it emplty or provide valid mail</string>
+    <string name="get_verification_code">Get Verification Code</string>
+    <string name="enter_code_received">Enter code received</string>
+    <string name="sign_in">Sign In</string>
+    <string name="enter_phone_number">Enter phone Number</string>
+    <string name="login">Login</string>
+    <string name="no_account_yet_create_one">No account yet? Create one</string>
+    <string name="sign_out">Sign Out</string>
+    <string name="authing">Authenticating...</string>
+
+    <string name="playstore_link">https://play.google.com/store/apps/details?id=</string>
+    <string name="enter_code">Enter the code first</string>
+    <string name="check_inbox">Check your inbox</string>
+    <string name="failed_varification">Verification Failed</string>
+    <string name="sent_code">Code Sent</string>
+    <string name="wrong_code">Wrong Verification Code</string>
 </resources>

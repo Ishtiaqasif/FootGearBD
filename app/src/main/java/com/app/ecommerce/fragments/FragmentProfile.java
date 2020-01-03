@@ -4,31 +4,40 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.app.ecommerce.ActivityLogin;
 import com.app.ecommerce.Config;
 import com.app.ecommerce.R;
 import com.app.ecommerce.activities.ActivityHistory;
 import com.app.ecommerce.activities.ActivitySettings;
 import com.app.ecommerce.utilities.SharedPref;
 import com.balysv.materialripple.MaterialRippleLayout;
+import com.google.firebase.auth.FirebaseAuth;
 
-public class FragmentProfile extends Fragment {
+public class FragmentProfile extends Fragment implements View.OnClickListener {
 
     private SharedPref sharedPref;
     TextView txt_user_name;
     TextView txt_user_email;
     TextView txt_user_phone;
     TextView txt_user_address;
+    TextView txt_user_shopName;
+    TextView txt_user_NID;
+
     MaterialRippleLayout btn_edit_user;
     MaterialRippleLayout btn_order_history, btn_rate, btn_share, btn_privacy;
     LinearLayout lyt_root;
 
+    FirebaseAuth mAuth;
+    Button signOutButton;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
@@ -40,10 +49,16 @@ public class FragmentProfile extends Fragment {
             lyt_root.setRotationY(180);
         }
 
+        signOutButton = (Button) lyt_root.findViewById(R.id.btn_sign_out);
+        signOutButton.setOnClickListener(this);
+
+
         txt_user_name = view.findViewById(R.id.txt_user_name);
         txt_user_email = view.findViewById(R.id.txt_user_email);
         txt_user_phone = view.findViewById(R.id.txt_user_phone);
         txt_user_address = view.findViewById(R.id.txt_user_address);
+        txt_user_shopName = view.findViewById(R.id.txt_user_shopName);
+        txt_user_NID = view.findViewById(R.id.txt_user_NID);
 
         btn_edit_user = view.findViewById(R.id.btn_edit_user);
         btn_edit_user.setOnClickListener(new View.OnClickListener() {
@@ -83,7 +98,7 @@ public class FragmentProfile extends Fragment {
                 String share_text = Html.fromHtml(getResources().getString(R.string.share_app)).toString();
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_SEND);
-                intent.putExtra(Intent.EXTRA_TEXT, share_text + "\n\n" + "https://play.google.com/store/apps/details?id=" + getActivity().getPackageName());
+                intent.putExtra(Intent.EXTRA_TEXT, share_text + "\n\n" + getString(R.string.playstore_link) + getActivity().getPackageName());
                 intent.setType("text/plain");
                 startActivity(intent);
             }
@@ -105,8 +120,25 @@ public class FragmentProfile extends Fragment {
         txt_user_name.setText(sharedPref.getYourName());
         txt_user_email.setText(sharedPref.getYourEmail());
         txt_user_phone.setText(sharedPref.getYourPhone());
-        txt_user_address.setText(sharedPref.getYourAddress());
+        txt_user_address.setText(sharedPref.getYourShopName());
+        txt_user_shopName.setText(sharedPref.getYourShopAddress());
+        txt_user_NID.setText(sharedPref.getYourNID());
         super.onResume();
     }
 
+    @Override
+    public void onClick(View v) {
+        FirebaseAuth.getInstance().signOut();
+
+        Intent intent = new Intent(getActivity(), ActivityLogin.class);
+
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP |
+                Intent.FLAG_ACTIVITY_CLEAR_TASK |
+                Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        startActivity(intent);
+
+    }
 }
+
+//TODO: Edit should be fixed for firebase and sharedPref

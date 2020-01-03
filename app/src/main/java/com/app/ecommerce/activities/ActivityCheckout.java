@@ -52,8 +52,8 @@ public class ActivityCheckout extends AppCompatActivity {
 
     RequestQueue requestQueue;
     Button btn_submit_order;
-    EditText edt_name, edt_email, edt_phone, edt_address, edt_shipping, edt_order_list, edt_order_total, edt_comment;
-    String str_name, str_email, str_phone, str_address, str_shipping, str_order_list, str_order_total, str_comment;
+    EditText edt_name, edt_shopName , edt_email, edt_phone, edt_address, edt_shipping, edt_order_list, edt_order_total, edt_comment;
+    String str_name, str_shopName, str_email, str_phone, str_address, str_shipping, str_order_list, str_order_total, str_comment;
     String data_order_list = "";
     double str_tax;
     String str_currency_code;
@@ -103,6 +103,7 @@ public class ActivityCheckout extends AppCompatActivity {
         btn_submit_order = findViewById(R.id.btn_submit_order);
 
         edt_name = findViewById(R.id.edt_name);
+        edt_shopName = findViewById(R.id.edt_shopName);
         edt_email = findViewById(R.id.edt_email);
         edt_phone = findViewById(R.id.edt_phone);
         edt_address = findViewById(R.id.edt_address);
@@ -134,31 +135,31 @@ public class ActivityCheckout extends AppCompatActivity {
         spinner = findViewById(R.id.spinner);
 
         StringRequest stringRequest = new StringRequest(GET_SHIPPING, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                JSONObject jsonObject = null;
+                try {
+                    jsonObject = new JSONObject(response);
+                    result = jsonObject.getJSONArray("result");
+                    getShipping(result);
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     @Override
-                    public void onResponse(String response) {
-                        JSONObject jsonObject = null;
-                        try {
-                            jsonObject = new JSONObject(response);
-                            result = jsonObject.getJSONArray("result");
-                            getShipping(result);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        edt_shipping.setText(setShipping(i));
+                    }
 
-                        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                edt_shipping.setText(setShipping(i));
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
-
-                            }
-                        });
+                    @Override
+                    public void onNothingSelected(AdapterView<?> adapterView) {
 
                     }
-                },
+                });
+
+            }
+        },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -209,6 +210,7 @@ public class ActivityCheckout extends AppCompatActivity {
     public void getValueFromEditText() {
 
         str_name = edt_name.getText().toString();
+        str_shopName = edt_shopName.getText().toString();
         str_email = edt_email.getText().toString();
         str_phone = edt_phone.getText().toString();
         str_address = edt_address.getText().toString();
@@ -218,6 +220,7 @@ public class ActivityCheckout extends AppCompatActivity {
         str_comment = edt_comment.getText().toString();
 
         if (str_name.equalsIgnoreCase("") ||
+                str_shopName.equalsIgnoreCase("") ||
                 str_email.equalsIgnoreCase("") ||
                 str_phone.equalsIgnoreCase("") ||
                 str_address.equalsIgnoreCase("") ||
@@ -249,21 +252,22 @@ public class ActivityCheckout extends AppCompatActivity {
         progressDialog.show();
 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, POST_ORDER, new Response.Listener<String>() {
+            @Override
+            public void onResponse(final String ServerResponse) {
+
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
                     @Override
-                    public void onResponse(final String ServerResponse) {
-
-                        final Handler handler = new Handler();
-                        handler.postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                progressDialog.dismiss();
-                                dialogSuccessOrder();
-                            }
-                        }, 2000);
-
+                    public void run() {
+                        progressDialog.dismiss();
+                        dialogSuccessOrder();
                     }
-                },
+                }, 2000);
+
+            }
+        },
                 new Response.ErrorListener() {
+                    //TODO: Null object reference
                     @Override
                     public void onErrorResponse(VolleyError volleyError) {
                         progressDialog.dismiss();
@@ -271,10 +275,12 @@ public class ActivityCheckout extends AppCompatActivity {
                     }
                 }) {
             @Override
+            // TODO: 11/9/2019  
             protected Map<String, String> getParams() {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("code", rand);
                 params.put("name", str_name);
+                params.put("shop_name", str_shopName);
                 params.put("email", str_email);
                 params.put("phone", str_phone);
                 params.put("address", str_address);
@@ -404,9 +410,10 @@ public class ActivityCheckout extends AppCompatActivity {
     @Override
     public void onResume() {
         edt_name.setText(sharedPref.getYourName());
+        edt_shopName.setText(sharedPref.getYourShopName());
         edt_email.setText(sharedPref.getYourEmail());
         edt_phone.setText(sharedPref.getYourPhone());
-        edt_address.setText(sharedPref.getYourAddress());
+        edt_address.setText(sharedPref.getYourShopAddress());
         super.onResume();
     }
 

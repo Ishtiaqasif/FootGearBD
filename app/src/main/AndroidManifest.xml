@@ -16,13 +16,18 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ActivityVerification4login"></activity>
+        <activity android:name=".ActivityLogin" />
+        <activity android:name=".ActivityVerification" />
         <activity
-            android:name=".ui.login.LoginActivity"
+            android:name=".ActivityRegistration"
             android:label="@string/title_activity_login"
             android:parentActivityName=".activities.MainActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.app.ecommerce.activities.MainActivity" />
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".activities.ActivitySplash"
@@ -71,7 +76,8 @@
         <activity
             android:name=".activities.ActivitySettings"
             android:screenOrientation="portrait"
-            android:theme="@style/Pref" /> <!-- fcm -->
+            android:theme="@style/Pref" />
+
         <service android:name=".notification.MyFirebaseMessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />

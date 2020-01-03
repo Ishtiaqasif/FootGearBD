@@ -9,6 +9,12 @@
             android:title="@string/pref_title_name" />
 
         <EditTextPreference
+            android:defaultValue="@string/default_your_shopName"
+            android:key="@string/pref_title_shopName"
+            android:summary="@string/default_your_shopName"
+            android:title="@string/pref_title_shopName" />
+
+        <EditTextPreference
             android:defaultValue="@string/default_your_email"
             android:key="@string/pref_title_email"
             android:summary="@string/default_your_email"
@@ -22,10 +28,18 @@
             android:title="@string/pref_title_phone" />
 
         <EditTextPreference
-            android:defaultValue="@string/default_your_address"
-            android:key="@string/pref_title_address"
-            android:summary="@string/default_your_address"
-            android:title="@string/pref_title_address" />
+            android:defaultValue="@string/default_your_NID"
+            android:key="@string/pref_title_NID"
+            android:summary="@string/default_your_NID"
+            android:title="@string/pref_title_NID" />
+
+        <EditTextPreference
+            android:defaultValue="@string/default_your_shopAddress"
+            android:key="@string/pref_title_shopAddress"
+            android:summary="@string/default_your_shopAddress"
+            android:title="@string/pref_title_shopAddress" />
+
+
 
     </PreferenceCategory>
 
